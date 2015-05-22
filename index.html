@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Linear Prediction Model</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Linear Prediction Model">
+  <meta name="author" content="Authored by  GB">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Linear Prediction Model</h1>
+    <h2>Comparison Between Calculated (Regression Formula)  and predict() R function</h2>
+    <p>Authored by  GB<br/>Potential Data Scientist</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>In this presentation both the dependent variable (y) and independent variable (y) are simulated. The random uniform distribution funtion runif() is used to simulate the independent variable and the dependent variable is simulated using the independent variable and a random normal distribution with mean equal to mu and standard deviation equal to sd as per the linear equation (See the simulations of variables and the linear equation in the coming slides).</p>
+
+<p>The purpose of this presentation is to show that calculating the predicted values manually by using the regression formula by first calculating the coefficient and formulating the regression/linear equation (best-fitting line) is the same as using the built model and then directly use the predict() function in R on the model to predict values.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Steps</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Generate independent variable x values</li>
+<li>Generate dependent variable y values</li>
+<li>Generate a Linear Regression Model </li>
+<li>Formulate the Regression formula and calculate(predict) expected values</li>
+<li>Run the predict function on the model and generate (predict) expected values</li>
+<li>Draw a table to compare regressed y values and predict() y values</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Simulate the Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">n   = 5; mu  = 0; var = 1
+x &lt;- runif(n)
+y &lt;- 5 + 2.7 * x + rnorm(n, mean=mu, sd=sqrt(var))
+</code></pre>
+
+<h2>Build the Model</h2>
+
+<pre><code class="r"># Build/Fit the model 
+regLinMod &lt;- lm(y~x)
+# Extract and store the Coefficients
+coef &lt;- coef(regLinMod)
+# Use the predict() function. &quot;Predict y&quot;
+y_predict &lt;- predict(regLinMod)
+# Use equation. &quot;Regressed y&quot;
+y_regressed &lt;- coef[1] + coef[2] * x
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Results</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># Comparison Table
+final &lt;- cbind(x, y, y_regressed, y_predict)
+colnames(final) &lt;- c(&quot;x&quot;, &quot;y&quot;,&quot;Regressed y&quot;,&quot;Predict y&quot;)
+final
+</code></pre>
+
+<pre><code>##           x        y Regressed y Predict y
+## 1 0.2618353 4.712583    4.922360  4.922360
+## 2 0.2727752 5.968698    4.972994  4.972994
+## 3 0.8745258 7.177612    7.758153  7.758153
+## 4 0.9096031 8.375246    7.920505  7.920505
+## 5 0.1857404 3.910033    4.570160  4.570160
+</code></pre>
+
+<h2>Conclusion</h2>
+
+<p>Although in this presentation/application data was simulated, this methodology can be applied to any data that has a linear relationship. As shown both the predicted values using the regession equation (best fit) and the predict() function in R are the same.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Steps'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Simulate the Data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Results'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
